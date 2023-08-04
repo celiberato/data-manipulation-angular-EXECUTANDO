@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { Automovel } from './automovel.model';\nconst RODAS_MOTO = 2;\nexport class Moto extends Automovel {\n  constructor(marca, modelo, valor) {\n    super(marca, modelo, RODAS_MOTO, valor);\n  }\n}\nexport default Moto;","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
