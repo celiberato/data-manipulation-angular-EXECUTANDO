@@ -9,7 +9,7 @@ COPY package.json /app
 RUN npm update
 RUN npm install -g npm@8.3.0
 RUN npm install -g @angular/cli
-# RUN ng update --all --force
+#RUN ng update --all --force
 
 COPY . /app
 RUN ng build #--configuration production
