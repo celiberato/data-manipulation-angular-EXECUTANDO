@@ -17,6 +17,6 @@ RUN ng build #--configuration production
 ### Estágio 2 - Subir o source para o servidor NGINX com a app Angular ###
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=ng-builder /app/dist/data-manipulation-angular /usr/share/nginx/html
+COPY --from=ng-builder ./data-manipulation-angular /usr/share/nginx/html
 
 EXPOSE 80
