@@ -5,3 +5,16 @@ app1:
         - "5000"
     networks: 
         - minha-rede
+
+nginx:
+    build:
+        dockerfile: ./docker/nginx.dockerfile
+        context: .
+    image: nginx
+    container_name: container-lb
+    ports:
+        - "80:80"
+    networks: 
+        - minha-rede
+    depends_on:
+        - "app1"
