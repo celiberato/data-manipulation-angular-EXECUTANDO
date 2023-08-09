@@ -1,13 +1,17 @@
-FROM node:12-slim
+FROM node:12.18.2 as build
 
-COPY package.json /app/package.json
+ARG REACT_APP_SERVICES_HOST=/services/m
 
 WORKDIR /app
-RUN npm install
-RUN npm install -g @angular/cli@8.1.2
 
-ENV PATH /app/node_modules/.bin:$PATH
+COPY ./package.json /app/package.json
+COPY ./package-lock.json /app/package-lock.json
 
-RUN apt-get update
-RUN apt-get install -y vim
-RUN apt-get install -y curl
+RUN yarn install
+COPY . .
+RUN yarn build
+
+
+FROM nginx
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
