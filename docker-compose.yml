@@ -1,13 +1,19 @@
-FROM node:12-slim
+version: '3'
 
-COPY package.json /app/package.json
+services:
+  
+  blackmirrorhq:
+    image: data-manipulation-angyular
+    expose:
+      - 4200
+    ports:
+      - 4200:4200
+    restart: on-failure
+    volumes:
+      - /app
+    working_dir: /app
+    command: "npm install && npm install -g @angular/cli@8.1.2 && ng serve --open --host 0.0.0.0 --port 4200 --disable-host-check"
+    # command: "ng serve --open --host 0.0.0.0 --port 4200 --disable-host-check"
 
-WORKDIR /app
-RUN npm install
-RUN npm install -g @angular/cli@8.1.2
-
-ENV PATH /app/node_modules/.bin:$PATH
-
-RUN apt-get update
-RUN apt-get install -y vim
-RUN apt-get install -y curl
+volumes:
+  postgres-volume:
