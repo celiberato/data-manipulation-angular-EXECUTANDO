@@ -1,22 +1,13 @@
-### Multi Stage Build ###
+FROM node:12-slim
 
-### Estágio 1 - Obter o source e gerar o build ###
-FROM node:18.10 AS ng-builder
-RUN mkdir -p /app
+COPY package.json /app/package.json
+
 WORKDIR /app
-COPY package.json /app
+RUN npm install
+RUN npm install -g @angular/cli@8.1.2
 
-RUN npm update
-RUN npm install -g npm@9.8.1
-RUN npm install -g @angular/cli
-RUN npm link @angular/cli
+ENV PATH /app/node_modules/.bin:$PATH
 
-COPY . /app
-RUN npm run build #--configuration production
-
-### Estágio 2 - Subir o source para o servidor NGINX com a app Angular ###
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=ng-builder /app/dist /usr/share/nginx/html
-
-EXPOSE 9025
+RUN apt-get update
+RUN apt-get install -y vim
+RUN apt-get install -y curl
