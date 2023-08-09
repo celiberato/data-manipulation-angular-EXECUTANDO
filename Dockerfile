@@ -19,4 +19,4 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=ng-builder /app/dist /usr/share/nginx/html
 
-EXPOSE 8081
+EXPOSE 9025
