@@ -2,7 +2,7 @@ version: '3'
 
 services:
   
-  blackmirrorhq:
+  container-app1:
     image: data-manipulation-angyular
     expose:
       - 4200
