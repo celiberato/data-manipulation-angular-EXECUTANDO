@@ -12,7 +12,7 @@ RUN npm install -g @angular/cli
 RUN ng update --all --force
 
 COPY . /app
-RUN ng build #--configuration production
+RUN npm run build #--configuration production
 
 ### Estágio 2 - Subir o source para o servidor NGINX com a app Angular ###
 FROM nginx:alpine
