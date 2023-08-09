@@ -1,7 +1,7 @@
 ### Multi Stage Build ###
 
 ### Estágio 1 - Obter o source e gerar o build ###
-FROM node:16.13.1 AS ng-builder
+FROM node:18.10 AS ng-builder
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
