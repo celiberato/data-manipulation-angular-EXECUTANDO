@@ -1,7 +1,7 @@
-v3:
-    image: data-manipulation-angular
-    container_name: data-manipulation-angular
+app1:
+    image: data-manipulatom-amgular
+    container_name: container-app1
     ports:
-        - "9025"
+        - "5000"
     networks: 
         - minha-rede
