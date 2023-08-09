@@ -1,4 +1,4 @@
-app1:
+data-manipulation-angular:
     image: data-manipulation-angular
     container_name: data-manipulation-angular
     ports:
