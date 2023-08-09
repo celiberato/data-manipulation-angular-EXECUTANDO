@@ -1,4 +1,4 @@
-data-manipulation-angular:
+v3:
     image: data-manipulation-angular
     container_name: data-manipulation-angular
     ports:
