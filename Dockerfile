@@ -10,6 +10,8 @@ RUN npm update
 RUN npm install -g npm@8.3.0
 RUN npm install -g @angular/cli
 #RUN npm run update --all --force
+RUN sudo apt install ng-common
+
 
 COPY . /app
 RUN npm run build #--configuration production
