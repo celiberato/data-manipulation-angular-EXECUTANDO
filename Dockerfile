@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json /app
 
 RUN npm update
-RUN npm install -g npm@8.3.0
+RUN npm install -g npm@9.8.1
 RUN npm install -g @angular/cli
 RUN npm link @angular/cli
 
