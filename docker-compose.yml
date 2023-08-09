@@ -3,7 +3,7 @@ version: '3'
 services:
   
   container-app1:
-    image: data-manipulation-angyular
+    image: data-manipulation-angular
     expose:
       - 4200
     ports:
