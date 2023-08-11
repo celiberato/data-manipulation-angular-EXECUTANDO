@@ -8,7 +8,7 @@ RUN npm install
 COPY . /app
  
 # Creating bundle
-RUN npm run build -- --prod
+RUN npm run build --prod
  
 WORKDIR /app/dist/browser
 EXPOSE 80
