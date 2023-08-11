@@ -4,7 +4,7 @@ LABEL authors="Carlos"
 # Building Angular app
 WORKDIR /app
 COPY package.json /app
-RUN npm install
+RUN yarn install
 COPY . /app
  
 # Creating bundle
