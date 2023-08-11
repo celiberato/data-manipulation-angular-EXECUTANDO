@@ -10,7 +10,7 @@ COPY . /app
 # Creating bundle
 RUN npm run build --prod
  
-WORKDIR /app/dist/browser
+WORKDIR /app/dist
 EXPOSE 80
 ENV PORT 80
 RUN npm install http-server -g
