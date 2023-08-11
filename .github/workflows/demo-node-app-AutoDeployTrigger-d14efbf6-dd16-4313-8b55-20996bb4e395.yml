@@ -1,0 +1,42 @@
+name: Trigger auto deployment for demo-node-app
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/demo-node-app-AutoDeployTrigger-d14efbf6-dd16-4313-8b55-20996bb4e395.yml'
+
+  # Allow mannually trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.DEMONODEAPP_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: celiberato.azurecr.io
+          registryUsername: ${{ secrets.DEMONODEAPP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.DEMONODEAPP_REGISTRY_PASSWORD }}
+          containerAppName: demo-node-app
+          resourceGroup: my-container-apps
+          imageToBuild: celiberato.azurecr.io/demo-node-app:${{ github.sha }}
+          dockerfilePath: Dockerfile
+
+     
+
