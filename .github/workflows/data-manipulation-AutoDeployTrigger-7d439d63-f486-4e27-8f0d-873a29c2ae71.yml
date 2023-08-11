@@ -1,0 +1,42 @@
+name: Trigger auto deployment for data-manipulation
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/data-manipulation-AutoDeployTrigger-7d439d63-f486-4e27-8f0d-873a29c2ae71.yml'
+
+  # Allow mannually trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.DATAMANIPULATION_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: celiberato.azurecr.io
+          registryUsername: ${{ secrets.DATAMANIPULATION_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.DATAMANIPULATION_REGISTRY_PASSWORD }}
+          containerAppName: data-manipulation
+          resourceGroup: my-container-apps
+          imageToBuild: celiberato.azurecr.io/data-manipulation:${{ github.sha }}
+          dockerfilePath: Dockerfile
+
+     
+
