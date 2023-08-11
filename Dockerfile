@@ -1,4 +1,4 @@
-FROM node:8.9-alpine as node-angular-cli
+FROM node:latest as node-angular-cli
 LABEL authors="Carlos"
  
 # Building Angular app
