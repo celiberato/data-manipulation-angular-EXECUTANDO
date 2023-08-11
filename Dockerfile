@@ -13,5 +13,4 @@ RUN npm run build --prod
 WORKDIR /app/dist/data-manipulation-angular-executando
 EXPOSE 80
 ENV PORT 80
-RUN npm install -g angular-http-server
-CMD [ "angular-http-server" ]
+CMD [ "npm", "start" ]
