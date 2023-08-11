@@ -1,17 +1,17 @@
-FROM node:12.18.2 as build
-
-ARG REACT_APP_SERVICES_HOST=/services/m
-
+FROM node:8.9-alpine as node-angular-cli
+LABEL authors="Carlos"
+ 
+# Building Angular app
 WORKDIR /app
-
-COPY ./package.json /app/package.json
-COPY ./package-lock.json /app/package-lock.json
-
-RUN yarn install
-COPY . .
-RUN yarn build
-
-
-FROM nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY package.json /app
+RUN npm install
+COPY . /app
+ 
+# Creating bundle
+RUN npm run build -- --prod
+ 
+WORKDIR /app/dist/browser
+EXPOSE 80
+ENV PORT 80
+RUN npm install http-server -g
+CMD [ "http-server" ]
